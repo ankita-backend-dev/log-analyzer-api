@@ -3,6 +3,10 @@ from app.services.log_parser import analyze_logs
 
 router = APIRouter()
 
+@router.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
 @router.post("/analyze-logs")
 async def analyze_log_file(file: UploadFile = File(...)):
 
