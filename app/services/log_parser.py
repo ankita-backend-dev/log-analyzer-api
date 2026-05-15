@@ -32,9 +32,20 @@ def analyze_logs(log_content: str):
 
     total_logs = len(lines)
 
+    info_count = summary["INFO"]
+    warning_count = summary["WARNING"]
+    error_count = summary["ERROR"]
+
+    severity_percentage = {
+        "INFO": round((info_count / total_logs) * 100, 2) if total_logs else 0,
+        "WARNING": round((warning_count / total_logs) * 100, 2) if total_logs else 0,
+        "ERROR": round((error_count / total_logs) * 100, 2) if total_logs else 0
+    }
+
     return {
         "total_logs": total_logs,
         "summary": summary,
+        "severity_percentage": severity_percentage,
         "warning_logs": warnings,
         "error_logs": errors,
         "timestamps": timestamps
