@@ -10,8 +10,14 @@ def analyze_logs(log_content: str):
 
     errors = []
     warnings = []
+    timestamps = []
 
     for line in lines:
+
+        parts = line.split(" ")
+
+        if len(parts) >= 2:
+            timestamps.append(f"{parts[0]} {parts[1]}")
 
         if "INFO" in line:
             summary["INFO"] += 1
@@ -30,5 +36,6 @@ def analyze_logs(log_content: str):
         "total_logs": total_logs,
         "summary": summary,
         "warning_logs": warnings,
-        "error_logs": errors
+        "error_logs": errors,
+        "timestamps": timestamps
     }
