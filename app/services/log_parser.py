@@ -1,7 +1,9 @@
 def analyze_logs(log_content: str):
 
+    # Split log content into lines
     lines = log_content.splitlines()
 
+    # Store log severity counts
     summary = {
         "INFO": 0,
         "WARNING": 0,
@@ -12,13 +14,16 @@ def analyze_logs(log_content: str):
     warnings = []
     timestamps = []
 
+    # Process each log line
     for line in lines:
 
+        # Extract timestamp information
         parts = line.split(" ")
 
         if len(parts) >= 2:
             timestamps.append(f"{parts[0]} {parts[1]}")
 
+        # Categorize log severity
         if "INFO" in line:
             summary["INFO"] += 1
 
@@ -36,12 +41,15 @@ def analyze_logs(log_content: str):
     warning_count = summary["WARNING"]
     error_count = summary["ERROR"]
 
+    # Calculate severity distribution percentages
     severity_percentage = {
         "INFO": round((info_count / total_logs) * 100, 2) if total_logs else 0,
         "WARNING": round((warning_count / total_logs) * 100, 2) if total_logs else 0,
         "ERROR": round((error_count / total_logs) * 100, 2) if total_logs else 0
     }
 
+
+    # Return analyzed log insights
     return {
         "total_logs": total_logs,
         "summary": summary,
